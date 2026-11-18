@@ -4,9 +4,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
+import PatientDashboard from "./pages/patient/PatientDashboard";
 
-import PatientDashboard from "./pages/patient/Dashboard";
 import Profile from "./pages/patient/Profile";
 import Prescriptions from "./pages/patient/Prescriptions";
 import Records from "./pages/patient/Records";
@@ -50,7 +49,7 @@ const HomeRoute = byRole(
     doctor: <DoctorDashboard />,
     patient: <PatientDashboard />,
   },
-  <Dashboard />
+  <PatientDashboard />
 );
 const PatientsRoute = byRole({ admin: <AdminPatients />, receptionist: <PatientList />, doctor: <DoctorPatients /> });
 const PatientDetailRoute = byRole({ receptionist: <PatientDetail />, doctor: <DoctorPatientDetail /> });

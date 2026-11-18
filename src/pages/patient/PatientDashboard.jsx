@@ -10,8 +10,8 @@ import {
     Users,
     X,
 } from "lucide-react";
-import { useAuth } from "../context/AuthContext";
-import "../index.css"
+import { useAuth } from "../../context/AuthContext";
+
 
 const CARDS = {
     admin: [
