@@ -65,3 +65,9 @@ export const pkr = (n) => `Rs ${Number(n || 0).toLocaleString("en-US")}`;
 // getPatientUsage ka shape alag ho sakta hai, isliye jo naam mile wo le lete hain
 export const planLimit = (p) => p?.limit ?? p?.max ?? p?.maxPatients ?? null;
 export const planUsed = (p) => p?.used ?? p?.count ?? 0;
+
+export const formatWeekday = (str) =>
+    parse(str).toLocaleDateString("en-GB", { weekday: "short", day: "numeric" });
+
+// Backend ka "feature locked" jawab
+export const isLocked = (err) => err?.response?.data?.code === "FEATURE_LOCKED";

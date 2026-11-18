@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import {
-    LayoutDashboard, Users, Stethoscope, CalendarDays,
+    LayoutDashboard, Users, Stethoscope, CalendarDays, Sparkles,
     FileText, CreditCard, FolderOpen, TrendingUp, LogOut, HeartPulse, ClipboardList, UserRound
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
@@ -11,6 +11,7 @@ const NAV = {
         { to: "/doctors", label: "Doctors", icon: Stethoscope },
         { to: "/staff", label: "Staff", icon: Users },
         { to: "/patients", label: "Patients", icon: ClipboardList },
+        { to: "/analytics", label: "Analytics", icon: TrendingUp },
         { to: "/plans", label: "Plan & Billing", icon: CreditCard },
     ],
     doctor: [
@@ -18,6 +19,7 @@ const NAV = {
         { to: "/appointments", label: "Appointments", icon: CalendarDays },
         { to: "/patients", label: "My Patients", icon: Users },
         { to: "/prescriptions", label: "Prescriptions", icon: FileText },
+        { to: "/symptom-checker", label: "Symptom Checker", icon: Sparkles },
     ],
     receptionist: [
         { to: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -31,14 +33,6 @@ const NAV = {
         { to: "/records", label: "Medical Records", icon: ClipboardList },
         { to: "/reports", label: "My Reports", icon: FolderOpen },
         { to: "/appointments", label: "My Appointments", icon: CalendarDays },
-    ],
-    admin: [
-        { to: "/", label: "Dashboard", icon: LayoutDashboard },
-        { to: "/doctors", label: "Doctors", icon: Stethoscope },
-        { to: "/staff", label: "Staff", icon: Users },
-        { to: "/patients", label: "Patients", icon: ClipboardList },
-        { to: "/analytics", label: "Analytics", icon: TrendingUp },
-        { to: "/plans", label: "Plan & Billing", icon: CreditCard },
     ],
 };
 
@@ -112,6 +106,26 @@ export default function Layout() {
                         </button>
                     </div>
                 </header>
+
+                {/* Mobile navigation */}
+                <nav className="flex gap-1 overflow-x-auto border-b border-line bg-white px-4 py-2 md:hidden">
+                    {items.map(({ to, label, icon: Icon }) => (
+                        <NavLink
+                            key={to}
+                            to={to}
+                            end={to === "/"}
+                            className={({ isActive }) =>
+                                `flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition ${isActive
+                                    ? "bg-secondary/60 text-primary-dark"
+                                    : "text-ink/70 hover:bg-page"
+                                }`
+                            }
+                        >
+                            <Icon size={15} />
+                            {label}
+                        </NavLink>
+                    ))}
+                </nav>
 
                 <main className="flex-1 p-6 md:p-8">
                     <Outlet />

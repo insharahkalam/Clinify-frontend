@@ -1,87 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import { AlertTriangle, ArrowLeft, FilePlus2, Loader2, ShieldAlert } from "lucide-react";
+import { ArrowLeft, FilePlus2, ShieldAlert } from "lucide-react";
 import api from "../../api/axios";
 import { ENDPOINTS } from "../../api/endpoints";
 import { errMsg } from "../../utils/format";
 import Loader from "../../components/Loader";
 import EmptyState from "../../components/EmptyState";
 import TimelineList from "../../components/TimelineList";
+import RiskPanel from "../../components/RiskPanel";
 import ReportsPanel from "../../components/ReportsPanel";
 
 const card = "rounded-2xl border border-line bg-white p-6 shadow-[0_4px_20px_rgba(169,155,203,0.10)]";
-const flagText = (x) =>
-    typeof x === "string" ? x : x.message || x.title || x.name || x.description || x.flag || JSON.stringify(x);
-const humanize = (k) => k.replace(/([A-Z])/g, " $1").replace(/[_-]/g, " ");
-
-function RiskPanel({ patientId }) {
-    const [state, setState] = useState({ loading: false, data: null, error: "" });
-
-    const check = async () => {
-        setState({ loading: true, data: null, error: "" });
-        try {
-            const { data } = await api.get(ENDPOINTS.doctor.risk(patientId));
-            setState({ loading: false, data, error: "" });
-        } catch (e) {
-            const error = errMsg(e);
-            toast.error(error);
-            setState({ loading: false, data: null, error });
-        }
-    };
-
-    const groups = state.data
-        ? Object.entries(state.data).filter(([k, v]) => Array.isArray(v) && v.length > 0 && k !== "patientId")
-        : [];
-
-    return (
-        <div className={`${card} mt-6`}>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
-                    <div className="grid h-9 w-9 place-items-center rounded-lg bg-secondary/60 text-primary-dark">
-                        <ShieldAlert size={18} />
-                    </div>
-                    <h2 className="font-semibold">Risk flags</h2>
-                </div>
-                <button
-                    onClick={check}
-                    disabled={state.loading}
-                    className="flex items-center gap-2 rounded-xl border border-line px-4 py-2 text-sm font-medium text-ink/70 transition hover:bg-page disabled:opacity-60"
-                >
-                    {state.loading && <Loader2 size={15} className="animate-spin" />}
-                    {state.data ? "Dobara check karein" : "Check karein"}
-                </button>
-            </div>
-
-            {state.error && <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-500">{state.error}</p>}
-
-            {state.data && (
-                <div className="mt-5 space-y-4">
-                    {groups.length === 0 ? (
-                        <p className="rounded-xl bg-page px-4 py-4 text-center text-sm text-ink/60">
-                            {state.data.checkedDiagnoses} diagnoses check hui, koi risk flag nahi mila.
-                        </p>
-                    ) : (
-                        groups.map(([key, list]) => (
-                            <div key={key}>
-                                <p className="mb-2 text-xs font-medium uppercase tracking-wide text-ink/50">{humanize(key)}</p>
-                                <ul className="space-y-2">
-                                    {list.map((f, i) => (
-                                        <li key={i} className="flex items-start gap-2.5 rounded-xl bg-amber-50 px-3.5 py-2.5 text-sm text-amber-800">
-                                            <AlertTriangle size={15} className="mt-0.5 shrink-0" />
-                                            {flagText(f)}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))
-                    )}
-                    {state.data.disclaimer && <p className="text-xs text-ink/50">{state.data.disclaimer}</p>}
-                </div>
-            )}
-        </div>
-    );
-}
 
 export default function DoctorPatientDetail() {
     const { id } = useParams();
@@ -172,7 +102,7 @@ export default function DoctorPatientDetail() {
 
             <h2 className="mb-4 mt-8 font-semibold">Medical history</h2>
             {timeline.length === 0 ? (
-                <EmptyState title="Abhi koi history nahi" text="Appointments, diagnosis aur prescriptions yahan nazar aayenge." />
+                <EmptyState title="Abhi koi history nahi" text="Appointments, diagnosis, prescriptions aur reports yahan nazar aayengi." />
             ) : (
                 <TimelineList items={timeline} />
             )}

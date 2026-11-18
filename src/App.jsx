@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 
+import PatientDashboard from "./pages/patient/Dashboard";
 import Profile from "./pages/patient/Profile";
 import Prescriptions from "./pages/patient/Prescriptions";
 import Records from "./pages/patient/Records";
@@ -26,6 +27,7 @@ import DoctorPatients from "./pages/doctor/Patients";
 import DoctorPatientDetail from "./pages/doctor/PatientDetail";
 import WritePrescription from "./pages/doctor/WritePrescription";
 import DoctorPrescriptions from "./pages/doctor/Prescriptions";
+import SymptomChecker from "./pages/doctor/SymptomChecker";
 
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminDoctors from "./pages/admin/Doctors";
@@ -42,7 +44,12 @@ const byRole = (map, fallback) =>
   };
 
 const HomeRoute = byRole(
-  { admin: <AdminDashboard />, receptionist: <ReceptionistDashboard />, doctor: <DoctorDashboard /> },
+  {
+    admin: <AdminDashboard />,
+    receptionist: <ReceptionistDashboard />,
+    doctor: <DoctorDashboard />,
+    patient: <PatientDashboard />,
+  },
   <Dashboard />
 );
 const PatientsRoute = byRole({ admin: <AdminPatients />, receptionist: <PatientList />, doctor: <DoctorPatients /> });
@@ -85,6 +92,7 @@ export default function App() {
 
         {/* Doctor */}
         <Route path="/prescriptions/new" element={only(["doctor"], <WritePrescription />)} />
+        <Route path="/symptom-checker" element={only(["doctor"], <SymptomChecker />)} />
 
         {/* Admin */}
         <Route path="/doctors" element={only(["admin"], <AdminDoctors />)} />

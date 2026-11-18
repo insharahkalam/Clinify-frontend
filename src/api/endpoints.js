@@ -51,7 +51,12 @@ export const ENDPOINTS = {
     },
     analytics: {
         admin: "/analytics/admin",
+        doctor: "/analytics/doctor",
         predictions: "/analytics/predictions",
     },
-    ai: { status: "/ai/status" },
+    ai: {
+        status: "/ai/status",
+        symptom: "/ai/symptom-check",
+        explain: (id) => `/ai/prescriptions/${id}/explain`,
+    },
 };
