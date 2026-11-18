@@ -1,0 +1,156 @@
+/* ===========================================================
+   MediSync AI — official color theme (Tailwind CSS v4)
+   Put this in src/index.css (your main CSS file).
+   =========================================================== */
+@import "tailwindcss";
+
+:root {
+  --primary: #8F78BF;
+  --primary-hover: #8068B5;
+  --primary-active: #7058A5;
+  --secondary: #D9CCF5;
+
+  --background: #F7F4FD;
+  --sidebar: #F0EBFD;
+  --card: #FFFFFF;
+  --section: #F3EEFD;
+
+  --foreground: #17134F;
+  --text-secondary: #756B99;
+  --text-muted: #9189A7;
+  --placeholder: #AAA3BB;
+
+  --border: #E6DFF5;
+  --border-light: #EEE9F7;
+  --input-border: #DDD5EF;
+  --focus-border: #8F78BF;
+
+  --lavender-light: #EDE6FC;
+  --lavender-soft: #F3EEFD;
+  --lavender-medium: #D9CCF5;
+  --lavender-dark: #8F78BF;
+  --lavender-deep: #8068B5;
+
+  --ai-gradient-start: #C9BEEE;
+  --ai-gradient-end: #A08DD3;
+
+  --success: #10A37F;
+  --success-bg: #E8F7F1;
+  --warning: #F59E0B;
+  --warning-bg: #FFF5E5;
+  --danger: #EF6464;
+  --danger-bg: #FDECEC;
+  --info: #829BCB;
+  --info-bg: #EDF2FA;
+
+  --chart-purple: #8F78BF;
+  --chart-lavender: #B8A5DF;
+  --chart-light: #D9CCF5;
+  --chart-soft: #C9BEEE;
+  --chart-accent: #A08DD3;
+
+  --card-shadow: 0 4px 20px rgba(143, 120, 191, 0.08);
+  --hover-shadow: 0 8px 25px rgba(143, 120, 191, 0.14);
+}
+
+@theme inline {
+  /* Brand */
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-active: var(--primary-active);
+  --color-secondary: var(--secondary);
+  --color-on-primary: #FFFFFF;
+
+  /* Backgrounds */
+  --color-page: var(--background);
+  --color-sidebar: var(--sidebar);
+  --color-card: var(--card);
+  --color-section: var(--section);
+  --color-input: #FFFFFF;
+  --color-modal: #FFFFFF;
+
+  /* Text */
+  --color-ink: var(--foreground);
+  --color-ink-secondary: var(--text-secondary);
+  --color-ink-muted: var(--text-muted);
+  --color-placeholder: var(--placeholder);
+
+  /* Borders */
+  --color-line: var(--border);
+  --color-line-light: var(--border-light);
+  --color-input-line: var(--input-border);
+  --color-focus: var(--focus-border);
+
+  /* Lavender shades */
+  --color-lavender-light: var(--lavender-light);
+  --color-lavender-soft: var(--lavender-soft);
+  --color-lavender-medium: var(--lavender-medium);
+  --color-lavender-dark: var(--lavender-dark);
+  --color-lavender-deep: var(--lavender-deep);
+
+  /* AI */
+  --color-ai-start: var(--ai-gradient-start);
+  --color-ai-end: var(--ai-gradient-end);
+  --color-ai-primary: #8068B5;
+  --color-ai-bg: #F0EBFD;
+
+  /* Status */
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+
+  /* Charts */
+  --color-chart-purple: var(--chart-purple);
+  --color-chart-lavender: var(--chart-lavender);
+  --color-chart-light: var(--chart-light);
+  --color-chart-soft: var(--chart-soft);
+  --color-chart-accent: var(--chart-accent);
+
+  /* Shadows */
+  --shadow-card: var(--card-shadow);
+  --shadow-hover: var(--hover-shadow);
+}
+
+@utility bg-ai-gradient {
+  background-image: linear-gradient(135deg, #C9BEEE 0%, #A08DD3 100%);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+@keyframes ms-wave {
+
+  0%,
+  60%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  10%,
+  30% {
+    transform: rotate(14deg);
+  }
+
+  20% {
+    transform: rotate(-8deg);
+  }
+
+  40% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+.animate-wave {
+  animation: ms-wave 2.4s ease-in-out infinite;
+}
