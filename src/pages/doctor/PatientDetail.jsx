@@ -98,7 +98,7 @@ export default function DoctorPatientDetail() {
             <RiskPanel patientId={patient._id} />
 
             <h2 className="mb-4 mt-8 font-semibold">Reports</h2>
-            <ReportsPanel patientId={patient._id} />
+            <ReportsPanel patientId={patient._id} readOnly />
 
             <h2 className="mb-4 mt-8 font-semibold">Medical history</h2>
             {timeline.length === 0 ? (

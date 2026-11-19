@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
-import { Loader2, Pencil, Plus, Search, Trash2 } from "lucide-react";
+import { Loader2, Pencil, Plus, Search, KeyRound, Trash2 } from "lucide-react";
 import api from "../../api/axios";
 import { ENDPOINTS } from "../../api/endpoints";
 import { errMsg, formatDate } from "../../utils/format";
@@ -9,6 +9,7 @@ import Modal from "../../components/Modal";
 import PageHeader from "../../components/PageHeader";
 import Loader from "../../components/Loader";
 import EmptyState from "../../components/EmptyState";
+import ResetPasswordModal from "./ResetPasswordModal";
 
 const empty = { name: "", email: "", password: "", phone: "", specialization: "" };
 
@@ -21,6 +22,7 @@ export default function StaffManager({ role, title, subtitle, noun, addLabel, ic
     const [saving, setSaving] = useState(false);
     const [target, setTarget] = useState(null);
     const [deleting, setDeleting] = useState(false);
+    const [resetting, setResetting] = useState(null);
 
     const load = useCallback(
         () =>
@@ -170,6 +172,9 @@ export default function StaffManager({ role, title, subtitle, noun, addLabel, ic
                                     <td className="hidden px-5 py-4 text-ink/70 lg:table-cell">{formatDate(s.createdAt)}</td>
                                     <td className="px-5 py-4">
                                         <div className="flex justify-end gap-2">
+                                            <button onClick={() => setResetting(s)} className="rounded-lg border border-line p-2 text-ink/60 transition hover:bg-page" aria-label="Reset password">
+                                                <KeyRound size={15} />
+                                            </button>
                                             <button onClick={() => openEdit(s)} className="rounded-lg border border-line p-2 text-ink/60 transition hover:bg-page" aria-label="Edit">
                                                 <Pencil size={15} />
                                             </button>
@@ -230,6 +235,7 @@ export default function StaffManager({ role, title, subtitle, noun, addLabel, ic
                     </div>
                 </Modal>
             )}
+            {resetting && <ResetPasswordModal staff={resetting} onClose={() => setResetting(null)} />}
         </div>
     );
 }

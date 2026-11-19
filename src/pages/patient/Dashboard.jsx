@@ -11,7 +11,9 @@ import {
     X,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
-
+import api from "../../api/axios";
+import { ENDPOINTS } from "../../api/endpoints";
+import { todayStr } from "../../utils/format";
 
 const CARDS = {
     admin: [
@@ -193,9 +195,7 @@ function TipsBanner({ role }) {
     );
 }
 
-// `stats` is optional: pass numbers from your API keyed by card key,
-// e.g. <Dashboard stats={{ doctors: 12, patients: 340, plan: "Pro" }} />
-export default function Dashboard({ stats = {} }) {
+function DashboardView({ stats = {} }) {
     const { user } = useAuth();
     const role = user?.role || "patient";
     const cards = CARDS[role] || [];
@@ -244,4 +244,35 @@ export default function Dashboard({ stats = {} }) {
             </div>
         </div>
     );
+}
+
+export default function PatientDashboard() {
+    const [stats, setStats] = useState({});
+
+    useEffect(() => {
+        const today = todayStr();
+
+        // Koi ek call fail bhi ho to baaqi counts dikhte rahein
+        Promise.allSettled([
+            api.get(ENDPOINTS.appointments.my),
+            api.get(ENDPOINTS.patient.prescriptions),
+            api.get(ENDPOINTS.reports.base),
+        ]).then(([appts, rx, reports]) => {
+            const ok = (r) => r.status === "fulfilled";
+            const next = {};
+
+            if (ok(appts)) {
+                next.upcomingAppointments = appts.value.data.filter(
+                    (a) => a.date >= today && ["pending", "confirmed"].includes(a.status)
+                ).length;
+            }
+            if (ok(rx) || ok(reports)) {
+                next.medicalRecords =
+                    (ok(rx) ? rx.value.data.length : 0) + (ok(reports) ? reports.value.data.length : 0);
+            }
+            setStats(next);
+        });
+    }, []);
+
+    return <DashboardView stats={stats} />;
 }

@@ -4,7 +4,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import PatientDashboard from "./pages/patient/PatientDashboard";
+import ChangePassword from "./pages/ChangePassword";
+import PatientDashboard from "./pages/patient/Dashboard";
 
 import Profile from "./pages/patient/Profile";
 import Prescriptions from "./pages/patient/Prescriptions";
@@ -36,7 +37,7 @@ import AdminPlans from "./pages/admin/Plans";
 import AdminAnalytics from "./pages/admin/Analytics";
 
 // Ek hi path, alag roles ke liye alag page. Jis role ka page nahi bana wahan fallback.
-const byRole = (map, fallback) =>
+const byRole = (map, fallback = <Navigate to="/" replace />) =>
   function RoleRoute() {
     const { user } = useAuth();
     return map[user.role] || fallback;
@@ -49,7 +50,7 @@ const HomeRoute = byRole(
     doctor: <DoctorDashboard />,
     patient: <PatientDashboard />,
   },
-  <PatientDashboard />
+  null
 );
 const PatientsRoute = byRole({ admin: <AdminPatients />, receptionist: <PatientList />, doctor: <DoctorPatients /> });
 const PatientDetailRoute = byRole({ receptionist: <PatientDetail />, doctor: <DoctorPatientDetail /> });
@@ -77,6 +78,7 @@ export default function App() {
         {/* Patient */}
         <Route path="/profile" element={only(["patient"], <Profile />)} />
         <Route path="/records" element={only(["patient"], <Records />)} />
+        <Route path="/password" element={<ChangePassword />} />
         <Route path="/reports" element={only(["patient"], <Reports />)} />
 
         {/* Shared paths, role ke hisaab se page */}

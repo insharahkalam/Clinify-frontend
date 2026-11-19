@@ -43,6 +43,7 @@ export const ENDPOINTS = {
         staff: "/admin/staff",
         staffOne: (id) => `/admin/staff/${id}`,
         patients: "/admin/patients",
+        staffPassword: (id) => `/admin/staff/${id}/password`,
     },
     subscription: {
         base: "/subscription",
@@ -58,5 +59,8 @@ export const ENDPOINTS = {
         status: "/ai/status",
         symptom: "/ai/symptom-check",
         explain: (id) => `/ai/prescriptions/${id}/explain`,
+    },
+    account: {
+        password: "/account/password",
     },
 };

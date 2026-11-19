@@ -22,7 +22,7 @@ const label = (c) => CATEGORIES.find(([k]) => k === c)?.[1] || "Other";
 const card = "rounded-2xl border border-line bg-white p-6 shadow-[0_4px_20px_rgba(169,155,203,0.10)]";
 const initial = { title: "", category: "lab_report", notes: "" };
 
-export default function ReportsPanel({ patientId }) {
+export default function ReportsPanel({ patientId, readOnly = false }) {
     const { user } = useAuth();
     const fileRef = useRef(null);
     const [items, setItems] = useState(null);
@@ -107,7 +107,7 @@ export default function ReportsPanel({ patientId }) {
 
     return (
         <div className="space-y-6">
-            <form onSubmit={upload} className={card}>
+            <form onSubmit={upload} className={`${card} ${readOnly ? "hidden" : ""}`}>
                 <div className="mb-4 flex items-center gap-2.5">
                     <div className="grid h-9 w-9 place-items-center rounded-lg bg-secondary/60 text-primary-dark">
                         <Upload size={18} />
