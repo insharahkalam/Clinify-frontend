@@ -114,7 +114,7 @@ export default function MyAppointments() {
     ];
 
     return (
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto">
             <PageHeader
                 title="My Appointments"
                 subtitle="Aapki saari appointments yahan hain"

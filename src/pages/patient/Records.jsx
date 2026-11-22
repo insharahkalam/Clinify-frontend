@@ -25,7 +25,7 @@ export default function Records() {
     if (!items) return <Loader />;
 
     return (
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto">
             <PageHeader title="Medical Records" subtitle="Aapki poori medical history ek timeline mein" />
             {items.length === 0 ? (
                 <EmptyState icon={ClipboardList} title="Koi record nahi mila" text="Appointments, diagnosis aur prescriptions yahan jama honge." />

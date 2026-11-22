@@ -192,7 +192,7 @@ export default function Prescriptions() {
     if (!list) return <Loader />;
 
     return (
-        <div className="mx-auto max-w-4xl px-1 pb-10">
+        <div className="mx-auto px-1 pb-10">
             <PageHeader title="Prescriptions" subtitle="Doctors ki likhi hui saari prescriptions" />
 
             {list.length === 0 ? (
